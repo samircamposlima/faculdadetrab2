@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+ <link rel="shortcut icon" href="img/ícone-4.png">
+  <title>Catálogo de Receitas</title>
+</head>
+<body>
+
+  <div class= "container-fluid ">
+    <div class="p-3 mb-2 bg-warning text-dark d-flex justify-content-center ">
+     <div class="d-flex flex-wrap" id="pnlCatalogo">
+      </div>
+      </div>
+  </div>
+      <script>
+    
+
+    var receitas = [
+      {
+        titulo: "Lasanha de Berinjela Detox",
+        imagem: "img/R.jpg",
+        preparo: "Em uma frigidera ante aderente, grelhe a berinjela em um fio de azeite. Se desejar, supique ervas sobre elas. reserve.À parte, corte ao meio os tomates, retire as sementes e coloque-os em uma forma com orégano e sal, leve ao formo brando por 20 minutos. Assim que esfriar, retire as peles e reserve.Coloque o tofú em um prato, amasse com um garfo e adicione sal, azeite, temperos e ervas a gosto.<h5 align = center> Molho </h5> Doure a cebola; coloque o molho de tomate pronto, o suficiente para refogar;refogue acrescente o tomate reservado; desligue o fogo e em seguida. Salpique com sal. Agora, monte sua lasanha com berinjela, tofu e tomate.",
+        ingredientes: ["3 ovos", "1 xícara de açúcar", "1 xícara de farinha de trigo", "1/2 xícara de cacau em pó"]
+      },
+      {
+        titulo: "Receita de Sopa detox",
+        imagem: "img/sopa-detox.jpg",
+        preparo: "Em uma panela grande refogue acrescente o azeite, a cebola, o alho e o gengibre. Refogue por alguns minutos. Em seguida acrescente os legumes (exceto a couve) e refogue até ficarem levemente dourados. Acrescente 2 litros de água filtrada e cozinhe os legumes até ficarem al dente. Prove o sal e tempere a gosto. Por ultimo acrescente a couve, desligue o fogo e mantenha-a tampada por 5 minutos. Sirva em seguida.",
+        ingredientes: ["2 colheres (sopa) de azeite", "1 cebola picada", "2 dentes de alho amassados", "1 colher (chá) de gengibre picado","1 cenoura em cubos"," 2 tomates picados","2 litros de água","1 maço de brócolis picado","1 abobrinha italiana em cubos","2 xícaras (chá) de couve em fatias finas"]
+      },
+      {
+        titulo: "Crepioca de queijo com tomate e orégano",
+        imagem: "img/crepioca-de-queijo-com-tomate-e-oregano-730x450.png",
+        preparo: "Reúna todos os ingredientes; Em um recipiente, misture o ovo, a tapioca e o sal; Em uma frigideira, aqueça o azeite, despeje a mistura de ovo e tapioca e deixe cozinhar até começar soltando do fundo da frigideira, vire e doure o outro lado; Adicione o queijo, o tomate e o orégano, tampe a frigideira e cozinhe por 1 a 2 minutos; Depois do tempo necessário, dobre a crepioca ao meio e acomode em um prato. Sirva essa delícia e bom apetite!",
+        ingredientes: ["1 ovo", "2 colheres de sopa de tapioca", "1 pitada de sal rosa", "1 fio de azeite de oliva","1 fatia de queijo mussarela","1 colher de sopa de tomate picadinho","Orégano a gosto"]
+      },
+    ];
+
+   
+    function getListaIngredientes(receita) {
+      var lista = receita.ingredientes.map(function(ingrediente) {
+        return `<li>${ingrediente}</li>`;
+      }).reduce(function(acumulador, item) {
+        return acumulador + item;
+      }, '');
+
+      return `<ul>${lista}</ul>`;
+    }
+
+    function getCard(receita) {
+      return `
+      
+
+        <div class="card " style="width: 300px; margin:10px">
+          <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+          <div class="card-body">
+            <h5 class="card-title">${receita.titulo}</h5>
+            <div class="card-text">
+              ${getListaIngredientes(receita)}
+              <hr>
+              ${receita.preparo}
+            </div>
+          </div>
+        </div>
+        </div>
+      `;
+    }
+
+      function preencher() {
+      var pnlCatalogo = document.getElementById("pnlCatalogo");
+
+      var catalogo = receitas.map(function(receita) {
+        return getCard(receita);
+      }).reduce(function(acumulador, item) {
+        return acumulador + item;
+      }, '');
+
+      pnlCatalogo.innerHTML = catalogo;
+    }
+window.onload = function() {
+      preencher();
+    };
+  </script>
+       
+     
+  
+
+  
+  
+</body>
+  
+</html>

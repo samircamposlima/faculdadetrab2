@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script type="text/javascript" src="ordenando.js"></script>
+  
+  <title>Ordenando Valores</title>
+</head>
+<body>
+  <!-- Conteúdo -->
+  <div class="container">
+    <h1>Ordenando Valores</h1>
+    <form>
+      <div class="form-group">
+        <label>Valor</label>
+        <div class="col-sm-2">
+          <input id="valor" class="form-control" type="number" />
+          <br />
+          <button class="btn btn-primary" onclick="add()" type="button">Adicionar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div class="container">
+    <form>
+      <div class="col-sm-2">
+        <select class="form-control" id="opcoes">
+          <option value="opcao1" selected>Blubble Sort</option>
+          <option value="opcao2">Selection Sort</option>
+          <option value="opcao3">Quick Sort</option>
+        </select>
+      </div>
+    </form>
+    <br />
+    <form>
+      <button class="btn btn-primary" onclick="ordenar()" type="button">Ordenar</button>
+      <button class="btn btn-primary" onclick="misturar()" type="button">Misturar</button>
+    </form>
+  </div>
+  <hr>
+  <div class="container">
+    <ul id="valores"></ul>
+  </div>
+</body>
+<script type="text/javascript">
+    function add() {
+      var adicionar = document.getElementById("valor");
+      var lista = document.getElementById("valores");
+      var numero = adicionar.value;
+
+      if (numero !== '') {
+        var node = document.createElement("li");
+        node.textContent = numero;
+        lista.appendChild(node);
+        adicionar.value = '';
+      }
+    }
+
+    function ordenar() {
+      var lista = document.getElementById("valores");
+      var opcoes = document.getElementById("opcoes");
+      var conteudo = Array.from(lista.children).map(function(item) {
+        return parseInt(item.innerHTML);
+      });
+
+      var selecaoDeItem = opcoes.selectedIndex;
+      var algoritmo = opcoes.options[selecaoDeItem].value;
+
+      // Escolher o algoritmo de ordenação adequado
+      if (algoritmo === "opcao1") {
+        bubble_sort(conteudo);
+      } else if (algoritmo === "opcao2") {
+        selection_sort(conteudo);
+      } else if (algoritmo === 'opcao3') {
+        quick_sort(conteudo);
+      }
+
+      var novoConteudo = conteudo.map(function(item) {
+        return '<li>' + item + '</li>';
+      }).join('');
+
+      lista.innerHTML = novoConteudo;
+    }
+
+    function misturar() {
+      var lista = document.getElementById("valores");
+      var conteudo = Array.from(lista.children).map(function(item) {
+        return parseInt(item.innerHTML);
+      });
+
+      if (conteudo.length === 0) {
+        alert('Não há entradas para misturar.');
+        return;
+      }
+        {shuffle(conteudo)}
+      
+      var novoConteudo = conteudo.map(function(item) {
+        return '<li>' + item + '</li>';
+      }).join('');
+
+      lista.innerHTML = novoConteudo;
+    }
+  </script>
+</html>
